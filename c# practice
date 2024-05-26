@@ -1,0 +1,258 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Runtime.Remoting.Messaging;
+using System.Runtime.Remoting.Services;
+using System.Security.AccessControl;
+using System.Security.Authentication;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Practice
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+             Console.Write("Please enter a number: ");
+            string num = Console.ReadLine();
+            int num1 = Convert.ToInt32(num);
+            int remainder = num1 % 2;
+
+            if (remainder == 0)
+            {
+                Console.WriteLine(num + " is an even number");
+            }
+            else if (remainder == 1)
+            {
+                Console.WriteLine( num + " is an odd number");
+            }
+            Console.ReadLine();
+            
+
+            // define num1 , define num2 , if else to compare
+             Console.Write("Enter a number to compare #1: ");
+             string textNum1 = Console.ReadLine();
+             int num1 = Convert.ToInt32(textNum1);
+
+             Console.Write("Enter a number to compare #2: ");
+             string textNum2 = Console.ReadLine();
+             int num2 = Convert.ToInt32(textNum2);
+
+             if (num1 > num2)
+             {
+                 Console.WriteLine(num1 + " is greater than " + num2 + ".");
+             }
+             else if (num1 < num2)
+             {
+                 Console.WriteLine(num1 + " is less than " + num2 + ".");
+             }
+             else
+             {
+                 Console.WriteLine(num1 + " is equal to " + num2); 
+             }
+            Console.ReadLine();
+          
+
+            //switch case practice = input, convert, switch case default
+
+             Console.Write("Choose a number 1-7: ");
+             string textDay = Console.ReadLine();
+             int day = Convert.ToInt32(textDay);
+
+             switch (day)
+             {
+                 case 1: Console.WriteLine("This is Monday! Goodluck with your wokr!");
+                     break;
+
+                 case 2: Console.WriteLine("Today is Tuesday! Keep it up!");
+                     break;
+
+                 case 3: Console.WriteLine("This is Wednesday. Two more to grind!");
+                     break;
+
+                 case 4: Console.WriteLine("Thursday now, are you thristy?");
+                     break;
+
+                 case 5: Console.WriteLine("TGIF!");
+                     break;
+
+                 case 6: Console.WriteLine("Saturday is here, beer time!");
+                     break;
+
+                 case 7: Console.WriteLine("Sunday ;(");
+                     break;
+
+                 default: Console.WriteLine("Invalid respond, please select the number 1-7");
+                     break;
+             } 
+            Console.Readline();
+            
+            //for loops practice = for loop used when we know how many time we want it to loop
+
+            Console.Write("How many time do you want to say hi?: ");
+             int loop = Convert.ToInt32(Console.ReadLine());
+
+             if (loop <= 0)
+             {
+                 Console.WriteLine("Please enter the number above 0");
+             }
+                 for (int i = 0; i < loop; i++)
+                 {
+                     Console.WriteLine("Hiiii!");
+                 }
+
+            //while loop practice mini math game
+             Console.Write("Give me a number: ");
+             string numText1 = Console.ReadLine();
+             int num1 = Convert.ToInt32(numText1);
+
+             Console.Write("Give me another number: ");
+             string numText2 = Console.ReadLine();
+             int num2 = Convert.ToInt32(numText2);
+
+             int answer = num1 * num2;
+             int actualAnswer = 0;
+
+             Console.Write("What is the value of " + num1 + " x " + num2 + " ?: ");
+             Console.WriteLine();
+
+             while (answer != actualAnswer)
+             { 
+                 string answerText = Console.ReadLine();
+                 actualAnswer = Convert.ToInt32(answerText);
+
+                 if (answer != actualAnswer)
+                 {
+                     Console.Write("Almost there! Try again! : ");
+                 }
+
+             }
+
+                 Console.WriteLine("You're right! Well done!"); 
+
+            //conditional operator for basic if else, something = condition ? true : false
+             int age = 10;
+
+             if (age <= 0)
+               {
+                Console.WriteLine("You're not born yet");
+               }
+             else
+               {
+                Console.WriteLine("Congratulation! Have fun living the best life! :)");
+               }
+            
+               
+            string result = age <= 0 ? "You're not born yet": "Congratulation! Have fun living the best life! :)";
+            Console.WriteLine(result); 
+            //Numeric Format
+
+             double num = 1000D / 30D;
+
+             Console.WriteLine(num);
+             Console.WriteLine(string.Format("{0} {1}", num, 999));
+             Console.WriteLine(string.Format("{0:0}", num));
+             Console.WriteLine(string.Format("{0:0.#}", num));
+             Console.WriteLine(string.Format("{0:0.0000}", num));
+             Console.WriteLine(num); 
+
+            //TryParse = try to passed it, try to pass the value before the program assumed and close, if convert succeed it will be value of not it will be 0, it return boolean
+
+             bool success = true;
+                 while (success)
+                 {
+                     Console.Write("Enter a number: ");
+                     string numInput = Console.ReadLine();
+
+
+                 if (int.TryParse(numInput, out int num)) //to know if we convert succed or not)
+                     {
+                         success = false;
+                         Console.WriteLine(num);
+                     }
+                 else 
+                     {
+                         Console.WriteLine("Failed!");
+                     }
+                 } 
+            //times table = ask user for a number, write for loop for a x times table
+               Console.Write("Enter a number: ");
+             string numInput = Console.ReadLine();
+             int num = Convert.ToInt32(numInput);
+
+                 for (int i = 1; i <= 12; i++)
+                 {
+                     Console.WriteLine("{0} x {1} = {2}", i , num , i * num);
+                 } 
+
+            /* FizzBuzz game = create a for loop from 1 to x (30)
+             * 3 and 5 = FIzzBuzz
+             * 3 = Fizz
+             * 5 = Buzz
+             * else = number */
+
+             for (int i = 1; i <= 30; i++)
+              {
+                  if (i % 3 == 0)
+                  {
+                      Console.WriteLine("Fizz");
+                  }
+                  else if (i % 5 == 0)
+                  {
+                      Console.WriteLine("Buzz");
+                  }
+                  else if (i % 3 == 0 && i % 5 == 0)
+                  {
+                      Console.WriteLine("Fizz Buzz");
+                  }
+                  else
+                  {  
+                      Console.WriteLine(i);
+                  }
+              }
+               
+            //another version = this one is more memory efficient bc the program don't have to calculate 4 times, now is just 2 times, and easier when they change the rule
+              bool fizz = false;
+              bool buzz = false;
+
+              for (int i = 1; i <= 30; i++)
+              {
+                  fizz = i % 3 == 0;
+                  buzz = i % 5 == 0;
+
+                  if (fizz)
+                  {
+                      Console.WriteLine("Fizz");
+                  }
+                  else if (buzz)
+                  {
+                      Console.WriteLine("Buzz");
+                  }
+                  else if (fizz && buzz)
+                  {
+                      Console.WriteLine("Fizz Buzz");
+                  }
+                  else
+                  {
+                      Console.WriteLine(i);
+                  }
+              }  
+
+            //print message in order, print message in reverse
+            //in order
+            Console.Write("Enter your message : ");
+            string message = Console.ReadLine();
+
+            for (int i = 0; i < message.Length; i++)
+            {
+                Console.WriteLine(message[i]);
+            }
+            //in reverse
+
+            Console.ReadLine(); 
+        }
+    }
+}
