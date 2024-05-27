@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Messaging;
 using System.Runtime.Remoting.Services;
 using System.Security.AccessControl;
 using System.Security.Authentication;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,7 +18,7 @@ namespace Practice
     {
         static void Main(string[] args)
         {
-             Console.Write("Please enter a number: ");
+            /* Console.Write("Please enter a number: ");
             string num = Console.ReadLine();
             int num1 = Convert.ToInt32(num);
             int remainder = num1 % 2;
@@ -30,10 +32,10 @@ namespace Practice
                 Console.WriteLine( num + " is an odd number");
             }
             Console.ReadLine();
-            
+            */
 
             // define num1 , define num2 , if else to compare
-             Console.Write("Enter a number to compare #1: ");
+            /* Console.Write("Enter a number to compare #1: ");
              string textNum1 = Console.ReadLine();
              int num1 = Convert.ToInt32(textNum1);
 
@@ -54,11 +56,11 @@ namespace Practice
                  Console.WriteLine(num1 + " is equal to " + num2); 
              }
             Console.ReadLine();
-          
+            */
 
             //switch case practice = input, convert, switch case default
 
-             Console.Write("Choose a number 1-7: ");
+            /* Console.Write("Choose a number 1-7: ");
              string textDay = Console.ReadLine();
              int day = Convert.ToInt32(textDay);
 
@@ -89,10 +91,10 @@ namespace Practice
                      break;
              } 
             Console.Readline();
-            
+            */
             //for loops practice = for loop used when we know how many time we want it to loop
 
-            Console.Write("How many time do you want to say hi?: ");
+            /*Console.Write("How many time do you want to say hi?: ");
              int loop = Convert.ToInt32(Console.ReadLine());
 
              if (loop <= 0)
@@ -102,10 +104,10 @@ namespace Practice
                  for (int i = 0; i < loop; i++)
                  {
                      Console.WriteLine("Hiiii!");
-                 }
+                 }*/
 
             //while loop practice mini math game
-             Console.Write("Give me a number: ");
+            /* Console.Write("Give me a number: ");
              string numText1 = Console.ReadLine();
              int num1 = Convert.ToInt32(numText1);
 
@@ -131,10 +133,10 @@ namespace Practice
 
              }
 
-                 Console.WriteLine("You're right! Well done!"); 
+                 Console.WriteLine("You're right! Well done!"); */
 
             //conditional operator for basic if else, something = condition ? true : false
-             int age = 10;
+            /* int age = 10;
 
              if (age <= 0)
                {
@@ -147,21 +149,21 @@ namespace Practice
             
                
             string result = age <= 0 ? "You're not born yet": "Congratulation! Have fun living the best life! :)";
-            Console.WriteLine(result); 
+            Console.WriteLine(result); */
             //Numeric Format
 
-             double num = 1000D / 30D;
+            /* double num = 1000D / 30D;
 
              Console.WriteLine(num);
              Console.WriteLine(string.Format("{0} {1}", num, 999));
              Console.WriteLine(string.Format("{0:0}", num));
              Console.WriteLine(string.Format("{0:0.#}", num));
              Console.WriteLine(string.Format("{0:0.0000}", num));
-             Console.WriteLine(num); 
+             Console.WriteLine(num); */
 
             //TryParse = try to passed it, try to pass the value before the program assumed and close, if convert succeed it will be value of not it will be 0, it return boolean
 
-             bool success = true;
+            /* bool success = true;
                  while (success)
                  {
                      Console.Write("Enter a number: ");
@@ -177,16 +179,16 @@ namespace Practice
                      {
                          Console.WriteLine("Failed!");
                      }
-                 } 
+                 } */
             //times table = ask user for a number, write for loop for a x times table
-               Console.Write("Enter a number: ");
+            /* Console.Write("Enter a number: ");
              string numInput = Console.ReadLine();
              int num = Convert.ToInt32(numInput);
 
                  for (int i = 1; i <= 12; i++)
                  {
                      Console.WriteLine("{0} x {1} = {2}", i , num , i * num);
-                 } 
+                 } */
 
             /* FizzBuzz game = create a for loop from 1 to x (30)
              * 3 and 5 = FIzzBuzz
@@ -194,7 +196,7 @@ namespace Practice
              * 5 = Buzz
              * else = number */
 
-             for (int i = 1; i <= 30; i++)
+            /*  for (int i = 1; i <= 30; i++)
               {
                   if (i % 3 == 0)
                   {
@@ -213,9 +215,9 @@ namespace Practice
                       Console.WriteLine(i);
                   }
               }
-               
+               */
             //another version = this one is more memory efficient bc the program don't have to calculate 4 times, now is just 2 times, and easier when they change the rule
-              bool fizz = false;
+            /*  bool fizz = false;
               bool buzz = false;
 
               for (int i = 1; i <= 30; i++)
@@ -239,18 +241,247 @@ namespace Practice
                   {
                       Console.WriteLine(i);
                   }
-              }  
+              }  */
 
             //print message in order, print message in reverse
             //in order
-            Console.Write("Enter your message : ");
-            string message = Console.ReadLine();
+            /* Console.Write("Enter your message : ");
+             string message = Console.ReadLine();
 
-            for (int i = 0; i < message.Length; i++)
+             for (int i = 0; i < message.Length; i++)
+             {
+                 Console.Write(message[i]);
+             }
+                  Console.WriteLine();
+             //in reverse
+             for (int i = message.Length - 1; i >= 0; i--)
+             {
+
+                 Console.Write(message[i]);
+             } */
+            //password checker
+            /* user enter a password
+             * user enter a password one more time
+             *   check if it contain something
+             *      if it is check if the password match
+             *      if it's not match  print "password not match"
+             *      if it is empty print "please enter a password"
+            */
+
+            /* Console.Write("Enter your password (6 or more characters): ");
+             string pass1 = Console.ReadLine();
+
+             Console.Write("Confirm your password: ");
+             string pass2 = Console.ReadLine();
+
+
+             if (!pass1.Equals(string.Empty)) 
+             {
+                 if (!pass2.Equals(string.Empty))
+                 {
+                     if (pass1.Length >= 6 && pass2.Length >= 6)
+                     {
+                         if (pass1.Equals(pass2))
+                         {
+                             Console.WriteLine("Password match");
+                         }
+                         else
+                         {
+                             Console.WriteLine("Paasword did not match");
+                         }
+                     }
+                     else 
+                     {
+                         Console.WriteLine("Please enter 6 or more characters.");
+                     }
+
+                 }
+                 else
+                 {
+                     Console.WriteLine("Please enter a password confirmation.");
+                 }
+
+             }
+             else
+             {
+                 Console.WriteLine("Please enter your password.");
+             } */
+
+            //triangle
+            /*  const int angleCount = 3;
+              int[] angles = new int[angleCount];
+
+                  for (int i = 0; i < angleCount; i++)
+                  {
+                  Console.Write($"Enter angle {i + 1}: ");
+                  angles[i]= Convert.ToInt32(Console.ReadLine());
+                  }
+
+
+
+              //int angleSum = angles[0] + angles[1] + angles[2];
+              int angleSum = 0;
+
+               foreach (int angle in angles) //it will run every value, can't specify like a for loop
+              {
+                  angleSum += angle; 
+              }
+
+              Console.WriteLine(angleSum);
+
+              Console.WriteLine(angleSum == 180 ? "Valid triangle" : "Invalid Triangle");
+
+              //triangle but not store any value
+               const int angleCount = 3;
+              int angleSum = 0;
+
+              for (int i = 0; i < angleCount; i++)
+              {
+                  Console.Write($"Enter angle {i + 1}: ");
+                  angleSum += Convert.ToInt32(Console.ReadLine());
+              }
+
+              Console.WriteLine(angleSum);
+
+              Console.WriteLine(angleSum == 180 ? "Valid triangle" : "Invalid Triangle"); */
+            //Array.Sort(array); = sort out the data in the array, return void, 
+            //Array.Reverse(array); = reverse the data in the array,
+            //Array.Clear(array, indexBegin, indexEnd); = clear the data in the array to its default (ex. int is 0)
+            //Array.IndexOf(array, search, indexBeginSearch, indexEndSearch); = uses to search for data in the array, if not found return -1, and will return only first found in the array
+
+            /*  int[] numbers = new int[]
+              { 
+                  12, 20, 29, 60 , 59, 78
+              };
+
+              Console.Write("Enter a number to search: ");
+              int search = Convert.ToInt32(Console.ReadLine());
+
+              int position = Array.IndexOf(numbers, search);
+
+              if (position > -1)
+              {
+                  Console.WriteLine($"The number {search} has been found at the postion {position + 1}");
+              }
+              else
+              {
+                  Console.WriteLine($"The number {search} has not been found!");
+              } */
+            //list<data type we wanna have> = use when we don't know how much the data gonna be
+
+            /* List<int> listNumbers = new List<int>();
+
+             for (int i = 0; i < 5; i++)
+             { 
+                 Console.Write("Enter a number: ");
+                 listNumbers.Add(Convert.ToInt32(Console.ReadLine()));
+             }
+
+             listNumbers.RemoveAt(2);
+
+             foreach (var item in listNumbers)
+             {
+                 Console.Write($"{item} ");
+             } */
+
+            //Dictionary<key, value> = value can be the same as long as key is unique
+
+            /*  Dictionary<string, string> names = new Dictionary<string, string>
+              {
+                  //KeyValuePair
+                  { "Fist", "BBB" } ,
+                  { "Second", "BBB" } ,
+                  { "Third", "EEE" }
+              };
+
+              if (names.TryGetValue("Second", out string namesOut)) //tryget is try to retreive a value from the the key
+              {
+                  Console.WriteLine(namesOut);
+                  names["Second"] = "FFF";
+              }
+              else
+              {
+                  Console.WriteLine(" Second is not found");
+              }
+
+              if (names.ContainsKey("Second"))
+              {
+                  names.Remove("Second");
+              }
+              else 
+              {
+                  Console.WriteLine(" Second is not found");
+              }
+
+              for (int i = 0; i < names.Count; i++)
+              {
+                  KeyValuePair<string, string> pair = names.ElementAt(i);
+                  Console.WriteLine($"{pair.Key} , {pair.Value} ");
+              } */
+
+            //odd/even split practice - uses list bc we can change the numbers freely more than array
+            /* create two lists with int data type, one for odd numbers and on for even number
+             * loop from 1-30
+                if the numbers are odd, stored it in odd list
+                if the numbers are even, stored it in even list
+            print odd list
+            print even list */
+
+            /* List<int> oddNums = new List<int>();
+             List<int> evenNums = new List<int>();
+
+             for (int i = 0; i <= 30; i++)
+             {
+                 if (i % 2 == 0)
+                 {
+                     evenNums.Add(i);
+                 }
+                 else
+                 { 
+                     oddNums.Add(i);
+                 }
+             }
+             Console.WriteLine("Printing odd number: ");
+             foreach (int items in oddNums)
+             {
+                 Console.Write($"{items} ");
+             }
+
+             Console.WriteLine(Environment.NewLine + "Printing even number: ");
+
+             foreach (int items in evenNums)
+             {
+                 Console.Write($"{items} ");
+             } */
+
+            //array of multiple
+            /* define and initialize two intergers (num, lenght)
+             * (num, length) -> [a, b ,c ...] (5, 6)
+             * create int array with size lenght
+             * loop through and insert the (loop  counter x num) into the array
+             * print the final array */
+            /*
+            int num = 5;
+            int lenght = 6;
+            int[] multiple = new int[lenght];
+            int counter = 0;
+
+            for (int i = 0; i < multiple.Length; i++)
             {
-                Console.WriteLine(message[i]);
+                multiple[i] = (i + 1) * num; //it can also be multiple[i - 1] = i * num;
+            } 
+            // or
+            for (int i = 1; i <= multiple.Length; i++, counter++)
+            {
+                multiple[counter] = i * num; 
             }
-            //in reverse
+
+            foreach (int i in multiple)
+            { 
+                Console.Write($"{i} " );
+            }*/
+
+            //function = make them do as less as possible
 
             Console.ReadLine(); 
         }
