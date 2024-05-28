@@ -4,6 +4,7 @@ using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
+using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Messaging;
 using System.Runtime.Remoting.Services;
 using System.Security.AccessControl;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Practice
 {
-    internal class Program
+    class Program
     {
         static void Main(string[] args)
         {
@@ -482,8 +483,142 @@ namespace Practice
             }*/
 
             //function = make them do as less as possible
+            /* areas of triangle 
+             * ask user for the width and height, store them
+             * creat funtion to calculate the area using (width * height) / 2
+             * call in  main and print the area ogf the triangle */
+            /* int width = ReadInput("Enter the width: ");
+             int height = ReadInput("Enter the height: ");
+
+             int result = AreaCalc(width, height);
+             Console.WriteLine($"The area is {result}."); */
+
+            //sum of int array function practice
+            /* create and initialize int array of numbers
+             * create function SumOfNumbers with int return type
+             * int array param
+             * function should return total of all number
+             * call in main and output in total
+             * extra: check array length
+                - retuen -1 if the array is empty
+                - check return in main  and output message
+                - do we need to return -1, how else can we make this */
+
+            /* int[] numbers = new int[5];
+
+             for (int i = 0; i < numbers.Length; i++)
+             {
+                     // Console.Write($"Enter #{i + 1} number: ");
+                     //  numbers[i] = Convert.ToInt32(Console.ReadLine());
+                     numbers[i] = NumInput($"Enter #{i + 1} number: ");
+                 }
+             } */
+
+            //return -1 version
+            /*  int total = SumOfNumbers(numbers);
+
+                  if (total > -1)
+                  {
+                    Console.WriteLine($"The total is {total} . ");
+                  }
+                  else
+                  {
+                    Console.WriteLine("Cannot find a total of an empty array.");
+                  } */
+
+            //don't have to return -1, turn it into bool
+
+            /*  if (SumOfNumbers(numbers, out int sum))
+             {
+                 Console.WriteLine($"The total is {sum} . ");
+             }
+             else
+             {
+                 Console.WriteLine("Cannot find a total of an empty array.");
+             }
+             */
+           
+            //Exception handling - try catch (put specific exception inside this after catch and put the (Exception) to the last catch)
+
+          /*  bool looping = true; //to keep the program prompting until it correcly run
+
+            while (looping)
+            { 
+                try
+                {
+                    Console.Write("Enter a number: ");
+                    int num = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine(num);
+
+                    looping = false;
+                }
+                catch (FormatException error)
+                {
+                    Console.WriteLine($" Error: {error.Message}"); //not neccessary if you already have a specific message but just to show
+                    Console.WriteLine("Please only enter numbers!");
+                }
+                catch (OverflowException error)
+                {
+                    Console.WriteLine($" Error: {error.Message}");
+                    Console.WriteLine("Please only enter numbers less than 2 billions!");
+                }
+                catch (Exception error)
+                {
+                    Console.WriteLine($" Error: {error.Message}"); 
+                    Console.WriteLine("Something's wrong!, I'm dying!");
+                }
+            }
+            Console.WriteLine("Bye Bye!"); */
 
             Console.ReadLine(); 
+
         }
+        //sum of int array function
+       /* static bool SumOfNumbers(int[] numbers, out int sum)
+        {
+            sum = 0;
+            if (numbers.Length > 0)
+            {
+                foreach (var num in numbers)
+                {
+                    sum += num;
+                }
+                return true;
+            }
+            return false;
+        }
+       static int NumInput(string message)
+        {
+            Console.Write(message);
+            return Convert.ToInt32(Console.ReadLine());
+        } 
+          static int SumOfNumbers(int[] numbers)
+          {
+              if (numbers.Length > 0)
+              {
+                  int SumOfNumber = 0;
+
+                  foreach (var num in numbers)
+                  {
+                      SumOfNumber += num;
+                  }
+                  return SumOfNumber;
+              }
+              return -1;
+          } */
+        //areas of triangle's function
+        /* static int ReadInput(string message)
+        {
+            Console.Write(message);
+            return Convert.ToInt32(Console.ReadLine());
+        }
+
+        static int AreaCalc(int width, int height)
+        {
+            return (width * height) / 2;
+        } */
     }
+            
 }
+
+
