@@ -17,8 +17,123 @@ namespace Practice
 {
     class Program
     {
+        /*struct Person
+        { 
+            public string name;
+            public int age;
+            public int favNum;
+            public string work;
+
+            public Person(string name, int age, int favNum, string work)
+            { 
+                this.name = name;
+               
+        this.age = age;
+                this.favNum = favNum;  
+                this.work = work; 
+            }
+
+        } */
+       class Person 
+        {
+            private string name; 
+            private int favNum;
+            //you can also use the auto implement properties,it will create a private properties behind as a backing field.
+            //      public string Name (get; set;)
+            //      public int FavNum   (get; set;)
+            // if the get and set does have any additional logic (isnullorempty / other condition), you should use this, easier and faster
+
+            public string Name //classes properties
+            {
+                get 
+                { 
+                    return name;
+                }
+                set 
+                {
+                    name = !string.IsNullOrEmpty(value) ? value : value = "Invalid";
+                }
+            }
+            public int FavNum 
+            { 
+                get => favNum; 
+                set => favNum = value > 0 ? value : -1;
+            }
+           public Person(string name, int favNum) // the different is you can have the constructer without assigning parameters and can have another overloaded constructers define the parameters later.
+            {
+                this.name = name;
+                this.favNum = favNum;
+            }
+
+            public void SetName(string name)
+            {
+                this.name = !string.IsNullOrEmpty(name) ? name : this.name = "Invalid";
+            }
+            public string GetName()
+            {
+                return name;
+            }
+            public void SetFavNum(int favNum) => this.favNum = favNum > 0 ? favNum : -1; 
+            public int GetFavNum() => favNum; //the same as above just tiny 
+
+            public string DetailPerson()
+            {
+                return $"{name} - {favNum}";
+            }
+            public override string ToString()
+            {
+                return $"{name} - {favNum}";
+            }
+            public override bool Equals(object obj)
+            {
+                if (obj is Person)
+                { 
+                    Person person = obj as Person;
+                    return Name.Equals(person.Name) && FavNum == person.FavNum;
+                }
+                return false;
+            }
+        }
         static void Main(string[] args)
         {
+            //Classes 
+             Console.Write("Enter your name: ");
+            string name = Console.ReadLine();
+
+            Console.Write("Enter your favorite number: ");
+            int favNum = Convert.ToInt32(Console.ReadLine()); 
+
+            Person person = new Person(name, favNum);
+            Console.WriteLine(person.DetailPerson());
+            Console.WriteLine(person.ToString());
+            Console.WriteLine(person);
+
+            person.SetName("frank");
+            person.SetFavNum(46);
+
+            Console.WriteLine(person.GetName());
+            Console.WriteLine(person.GetFavNum());
+
+            person.Name = "Billy";
+            person.FavNum = 66;
+            Console.WriteLine($"Your name is {person.Name}, and your favorite number is {person.FavNum}. ");
+
+            Person test = new Person("Billy", 6);
+            if (person.Equals(test))
+            {
+                Console.WriteLine("It's the same.");
+            }
+            else
+            {
+                Console.WriteLine("It's not the same");
+            }
+
+            //Console.Write($"{person.name} - {person.favNum}");
+
+            //structure
+            /*  Person person = DetailPerson();
+              Console.WriteLine($"{person.name}, {person.age}, {person.favNum}, {person.work}"); */
+
             /* Console.Write("Please enter a number: ");
             string num = Console.ReadLine();
             int num1 = Convert.ToInt32(num);
@@ -537,88 +652,164 @@ namespace Practice
                  Console.WriteLine("Cannot find a total of an empty array.");
              }
              */
-           
+
             //Exception handling - try catch (put specific exception inside this after catch and put the (Exception) to the last catch)
 
-          /*  bool looping = true; //to keep the program prompting until it correcly run
+            /*  bool looping = true; //to keep the program prompting until it correcly run
 
-            while (looping)
-            { 
+              while (looping)
+              { 
+                  try
+                  {
+                      Console.Write("Enter a number: ");
+                      int num = Convert.ToInt32(Console.ReadLine());
+                      Console.WriteLine(num);
+
+                      looping = false;
+                  }
+                  catch (FormatException error)
+                  {
+                      Console.WriteLine($" Error: {error.Message}"); //not neccessary if you already have a specific message but just to show
+                      Console.WriteLine("Please only enter numbers!");
+                  }
+                  catch (OverflowException error)
+                  {
+                      Console.WriteLine($" Error: {error.Message}");
+                      Console.WriteLine("Please only enter numbers less than 2 billions!");
+                  }
+                  catch (Exception error)
+                  {
+                      Console.WriteLine($" Error: {error.Message}"); 
+                      Console.WriteLine("Something's wrong!, I'm dying!");
+                  }
+              }
+              Console.WriteLine("Bye Bye!"); */
+
+            //Custom Tryparse
+            /*create a int and try to convert any string to an int
+             * Notice the error and use try..catch handler around it
+             * catch the error and output the error message
+             * without changing the current code
+             * why is it the bad situation and how can we know if its been converted?
+             * create a custom tryparse function
+             * find the real function and copy the type/parameter
+             * reads the tooltip it give you to give you idea on what to do */
+
+            /* bool success = false;
+            //can wrap all this in a while loop but I'm a little confused so I'll wrap it later
+                 try
+                 {
+                     Console.Write("Enter a number: ");
+                     int num = Convert.ToInt32(Console.ReadLine());
+
+                     success = true;
+                 }
+                 catch (FormatException error)
+                 {
+                     Console.WriteLine($"Error: {error}");
+                 }
+                 catch (OverflowException error)
+                 {
+                     Console.WriteLine($"Error: {error}");
+                 }
+                 catch (Exception error)
+                 {
+                     Console.WriteLine($"Error: {error}");
+                 }
+             Console.Write("Enter a number: ");
+                if (TryParse(Console.ReadLine(), out int result))
+                {
+                    Console.WriteLine("Oh yeahh");
+                }
+                else
+                {
+                    Console.WriteLine("Oh noooo"); */
+
+
+            Console.ReadLine();
+        }
+        //structure related function
+        /* static Person DetailPerson()
+        {
+            Console.Write("Enter your name: ");
+            string name = Console.ReadLine();
+
+            Console.Write("Enter your age: ");
+            int age = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Enter your favorite number: ");
+            int favNum = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Enter your work: ");
+            string work = Console.ReadLine();
+
+
+            return new Person(name, age, favNum, work);
+        } */
+
+            //tryparse function
+            /*nstatic bool TryParse(string input, out int result)
+            {
                 try
                 {
-                    Console.Write("Enter a number: ");
-                    int num = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine(num);
-
-                    looping = false;
-                }
-                catch (FormatException error)
-                {
-                    Console.WriteLine($" Error: {error.Message}"); //not neccessary if you already have a specific message but just to show
-                    Console.WriteLine("Please only enter numbers!");
-                }
-                catch (OverflowException error)
-                {
-                    Console.WriteLine($" Error: {error.Message}");
-                    Console.WriteLine("Please only enter numbers less than 2 billions!");
+                    result = Convert.ToInt32(input);
+                    return true;
                 }
                 catch (Exception error)
                 {
-                    Console.WriteLine($" Error: {error.Message}"); 
-                    Console.WriteLine("Something's wrong!, I'm dying!");
+                    result = -1;
+                    Console.WriteLine($"Error: {error.Message}");
+                    return false;
                 }
-            }
-            Console.WriteLine("Bye Bye!"); */
 
-            Console.ReadLine(); 
+            } */
 
-        }
-        //sum of int array function
-       /* static bool SumOfNumbers(int[] numbers, out int sum)
-        {
-            sum = 0;
-            if (numbers.Length > 0)
+            //sum of int array function
+            /* static bool SumOfNumbers(int[] numbers, out int sum)
+             {
+                 sum = 0;
+                 if (numbers.Length > 0)
+                 {
+                     foreach (var num in numbers)
+                     {
+                         sum += num;
+                     }
+                     return true;
+                 }
+                 return false;
+             }
+            static int NumInput(string message)
+             {
+                 Console.Write(message);
+                 return Convert.ToInt32(Console.ReadLine());
+             } 
+               static int SumOfNumbers(int[] numbers)
+               {
+                   if (numbers.Length > 0)
+                   {
+                       int SumOfNumber = 0;
+
+                       foreach (var num in numbers)
+                       {
+                           SumOfNumber += num;
+                       }
+                       return SumOfNumber;
+                   }
+                   return -1;
+               } */
+            //areas of triangle's function
+            /* static int ReadInput(string message)
             {
-                foreach (var num in numbers)
-                {
-                    sum += num;
-                }
-                return true;
+                Console.Write(message);
+                return Convert.ToInt32(Console.ReadLine());
             }
-            return false;
-        }
-       static int NumInput(string message)
-        {
-            Console.Write(message);
-            return Convert.ToInt32(Console.ReadLine());
-        } 
-          static int SumOfNumbers(int[] numbers)
-          {
-              if (numbers.Length > 0)
-              {
-                  int SumOfNumber = 0;
 
-                  foreach (var num in numbers)
-                  {
-                      SumOfNumber += num;
-                  }
-                  return SumOfNumber;
-              }
-              return -1;
-          } */
-        //areas of triangle's function
-        /* static int ReadInput(string message)
-        {
-            Console.Write(message);
-            return Convert.ToInt32(Console.ReadLine());
-        }
+            static int AreaCalc(int width, int height)
+            {
+                return (width * height) / 2;
 
-        static int AreaCalc(int width, int height)
-        {
-            return (width * height) / 2;
-        } */
+            } */
     }
-            
-}
+}    
 
 
