@@ -1,0 +1,815 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
+using System.Linq;
+using System.Net.NetworkInformation;
+using System.Runtime.CompilerServices;
+using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Messaging;
+using System.Runtime.Remoting.Services;
+using System.Security.AccessControl;
+using System.Security.Authentication;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Practice
+{
+    class Program
+    {
+        /*struct Person
+        { 
+            public string name;
+            public int age;
+            public int favNum;
+            public string work;
+
+            public Person(string name, int age, int favNum, string work)
+            { 
+                this.name = name;
+               
+        this.age = age;
+                this.favNum = favNum;  
+                this.work = work; 
+            }
+
+        } */
+       class Person 
+        {
+            private string name; 
+            private int favNum;
+            //you can also use the auto implement properties,it will create a private properties behind as a backing field.
+            //      public string Name (get; set;)
+            //      public int FavNum   (get; set;)
+            // if the get and set does have any additional logic (isnullorempty / other condition), you should use this, easier and faster
+
+            public string Name //classes properties
+            {
+                get 
+                { 
+                    return name;
+                }
+                set 
+                {
+                    name = !string.IsNullOrEmpty(value) ? value : value = "Invalid";
+                }
+            }
+            public int FavNum 
+            { 
+                get => favNum; 
+                set => favNum = value > 0 ? value : -1;
+            }
+           public Person(string name, int favNum) // the different is you can have the constructer without assigning parameters and can have another overloaded constructers define the parameters later.
+            {
+                this.name = name;
+                this.favNum = favNum;
+            }
+
+            public void SetName(string name)
+            {
+                this.name = !string.IsNullOrEmpty(name) ? name : this.name = "Invalid";
+            }
+            public string GetName()
+            {
+                return name;
+            }
+            public void SetFavNum(int favNum) => this.favNum = favNum > 0 ? favNum : -1; 
+            public int GetFavNum() => favNum; //the same as above just tiny 
+
+            public string DetailPerson()
+            {
+                return $"{name} - {favNum}";
+            }
+            public override string ToString() //make it easier to use/call
+            {
+                return $"{name} - {favNum}";
+            }
+            public override bool Equals(object obj)
+            {
+                if (obj is Person)
+                { 
+                    Person person = obj as Person;
+                    return Name.Equals(person.Name) && FavNum == person.FavNum;
+                }
+                return false;
+            }
+        }
+        static void Main(string[] args)
+        {
+            //Classes 
+             Console.Write("Enter your name: ");
+            string name = Console.ReadLine();
+
+            Console.Write("Enter your favorite number: ");
+            int favNum = Convert.ToInt32(Console.ReadLine()); 
+
+            Person person = new Person(name, favNum);
+            Console.WriteLine(person.DetailPerson());
+            Console.WriteLine(person.ToString());
+            Console.WriteLine(person);
+
+            person.SetName("frank");
+            person.SetFavNum(46);
+
+            Console.WriteLine(person.GetName());
+            Console.WriteLine(person.GetFavNum());
+
+            person.Name = "Billy";
+            person.FavNum = 66;
+            Console.WriteLine($"Your name is {person.Name}, and your favorite number is {person.FavNum}. ");
+
+            Person test = new Person("Billy", 6);
+            if (person.Equals(test))
+            {
+                Console.WriteLine("It's the same.");
+            }
+            else
+            {
+                Console.WriteLine("It's not the same");
+            }
+
+            //Console.Write($"{person.name} - {person.favNum}");
+
+            //structure
+            /*  Person person = DetailPerson();
+              Console.WriteLine($"{person.name}, {person.age}, {person.favNum}, {person.work}"); */
+
+            /* Console.Write("Please enter a number: ");
+            string num = Console.ReadLine();
+            int num1 = Convert.ToInt32(num);
+            int remainder = num1 % 2;
+
+            if (remainder == 0)
+            {
+                Console.WriteLine(num + " is an even number");
+            }
+            else if (remainder == 1)
+            {
+                Console.WriteLine( num + " is an odd number");
+            }
+            Console.ReadLine();
+            */
+
+            // define num1 , define num2 , if else to compare
+            /* Console.Write("Enter a number to compare #1: ");
+             string textNum1 = Console.ReadLine();
+             int num1 = Convert.ToInt32(textNum1);
+
+             Console.Write("Enter a number to compare #2: ");
+             string textNum2 = Console.ReadLine();
+             int num2 = Convert.ToInt32(textNum2);
+
+             if (num1 > num2)
+             {
+                 Console.WriteLine(num1 + " is greater than " + num2 + ".");
+             }
+             else if (num1 < num2)
+             {
+                 Console.WriteLine(num1 + " is less than " + num2 + ".");
+             }
+             else
+             {
+                 Console.WriteLine(num1 + " is equal to " + num2); 
+             }
+            Console.ReadLine();
+            */
+
+            //switch case practice = input, convert, switch case default
+
+            /* Console.Write("Choose a number 1-7: ");
+             string textDay = Console.ReadLine();
+             int day = Convert.ToInt32(textDay);
+
+             switch (day)
+             {
+                 case 1: Console.WriteLine("This is Monday! Goodluck with your wokr!");
+                     break;
+
+                 case 2: Console.WriteLine("Today is Tuesday! Keep it up!");
+                     break;
+
+                 case 3: Console.WriteLine("This is Wednesday. Two more to grind!");
+                     break;
+
+                 case 4: Console.WriteLine("Thursday now, are you thristy?");
+                     break;
+
+                 case 5: Console.WriteLine("TGIF!");
+                     break;
+
+                 case 6: Console.WriteLine("Saturday is here, beer time!");
+                     break;
+
+                 case 7: Console.WriteLine("Sunday ;(");
+                     break;
+
+                 default: Console.WriteLine("Invalid respond, please select the number 1-7");
+                     break;
+             } 
+            Console.Readline();
+            */
+            //for loops practice = for loop used when we know how many time we want it to loop
+
+            /*Console.Write("How many time do you want to say hi?: ");
+             int loop = Convert.ToInt32(Console.ReadLine());
+
+             if (loop <= 0)
+             {
+                 Console.WriteLine("Please enter the number above 0");
+             }
+                 for (int i = 0; i < loop; i++)
+                 {
+                     Console.WriteLine("Hiiii!");
+                 }*/
+
+            //while loop practice mini math game
+            /* Console.Write("Give me a number: ");
+             string numText1 = Console.ReadLine();
+             int num1 = Convert.ToInt32(numText1);
+
+             Console.Write("Give me another number: ");
+             string numText2 = Console.ReadLine();
+             int num2 = Convert.ToInt32(numText2);
+
+             int answer = num1 * num2;
+             int actualAnswer = 0;
+
+             Console.Write("What is the value of " + num1 + " x " + num2 + " ?: ");
+             Console.WriteLine();
+
+             while (answer != actualAnswer)
+             { 
+                 string answerText = Console.ReadLine();
+                 actualAnswer = Convert.ToInt32(answerText);
+
+                 if (answer != actualAnswer)
+                 {
+                     Console.Write("Almost there! Try again! : ");
+                 }
+
+             }
+
+                 Console.WriteLine("You're right! Well done!"); */
+
+            //conditional operator for basic if else, something = condition ? true : false
+            /* int age = 10;
+
+             if (age <= 0)
+               {
+                Console.WriteLine("You're not born yet");
+               }
+             else
+               {
+                Console.WriteLine("Congratulation! Have fun living the best life! :)");
+               }
+            
+               
+            string result = age <= 0 ? "You're not born yet": "Congratulation! Have fun living the best life! :)";
+            Console.WriteLine(result); */
+            //Numeric Format
+
+            /* double num = 1000D / 30D;
+
+             Console.WriteLine(num);
+             Console.WriteLine(string.Format("{0} {1}", num, 999));
+             Console.WriteLine(string.Format("{0:0}", num));
+             Console.WriteLine(string.Format("{0:0.#}", num));
+             Console.WriteLine(string.Format("{0:0.0000}", num));
+             Console.WriteLine(num); */
+
+            //TryParse = try to passed it, try to pass the value before the program assumed and close, if convert succeed it will be value of not it will be 0, it return boolean
+
+            /* bool success = true;
+                 while (success)
+                 {
+                     Console.Write("Enter a number: ");
+                     string numInput = Console.ReadLine();
+
+
+                 if (int.TryParse(numInput, out int num)) //to know if we convert succed or not)
+                     {
+                         success = false;
+                         Console.WriteLine(num);
+                     }
+                 else 
+                     {
+                         Console.WriteLine("Failed!");
+                     }
+                 } */
+            //times table = ask user for a number, write for loop for a x times table
+            /* Console.Write("Enter a number: ");
+             string numInput = Console.ReadLine();
+             int num = Convert.ToInt32(numInput);
+
+                 for (int i = 1; i <= 12; i++)
+                 {
+                     Console.WriteLine("{0} x {1} = {2}", i , num , i * num);
+                 } */
+
+            /* FizzBuzz game = create a for loop from 1 to x (30)
+             * 3 and 5 = FIzzBuzz
+             * 3 = Fizz
+             * 5 = Buzz
+             * else = number */
+
+            /*  for (int i = 1; i <= 30; i++)
+              {
+                  if (i % 3 == 0)
+                  {
+                      Console.WriteLine("Fizz");
+                  }
+                  else if (i % 5 == 0)
+                  {
+                      Console.WriteLine("Buzz");
+                  }
+                  else if (i % 3 == 0 && i % 5 == 0)
+                  {
+                      Console.WriteLine("Fizz Buzz");
+                  }
+                  else
+                  {  
+                      Console.WriteLine(i);
+                  }
+              }
+               */
+            //another version = this one is more memory efficient bc the program don't have to calculate 4 times, now is just 2 times, and easier when they change the rule
+            /*  bool fizz = false;
+              bool buzz = false;
+
+              for (int i = 1; i <= 30; i++)
+              {
+                  fizz = i % 3 == 0;
+                  buzz = i % 5 == 0;
+
+                  if (fizz)
+                  {
+                      Console.WriteLine("Fizz");
+                  }
+                  else if (buzz)
+                  {
+                      Console.WriteLine("Buzz");
+                  }
+                  else if (fizz && buzz)
+                  {
+                      Console.WriteLine("Fizz Buzz");
+                  }
+                  else
+                  {
+                      Console.WriteLine(i);
+                  }
+              }  */
+
+            //print message in order, print message in reverse
+            //in order
+            /* Console.Write("Enter your message : ");
+             string message = Console.ReadLine();
+
+             for (int i = 0; i < message.Length; i++)
+             {
+                 Console.Write(message[i]);
+             }
+                  Console.WriteLine();
+             //in reverse
+             for (int i = message.Length - 1; i >= 0; i--)
+             {
+
+                 Console.Write(message[i]);
+             } */
+            //password checker
+            /* user enter a password
+             * user enter a password one more time
+             *   check if it contain something
+             *      if it is check if the password match
+             *      if it's not match  print "password not match"
+             *      if it is empty print "please enter a password"
+            */
+
+            /* Console.Write("Enter your password (6 or more characters): ");
+             string pass1 = Console.ReadLine();
+
+             Console.Write("Confirm your password: ");
+             string pass2 = Console.ReadLine();
+
+
+             if (!pass1.Equals(string.Empty)) 
+             {
+                 if (!pass2.Equals(string.Empty))
+                 {
+                     if (pass1.Length >= 6 && pass2.Length >= 6)
+                     {
+                         if (pass1.Equals(pass2))
+                         {
+                             Console.WriteLine("Password match");
+                         }
+                         else
+                         {
+                             Console.WriteLine("Paasword did not match");
+                         }
+                     }
+                     else 
+                     {
+                         Console.WriteLine("Please enter 6 or more characters.");
+                     }
+
+                 }
+                 else
+                 {
+                     Console.WriteLine("Please enter a password confirmation.");
+                 }
+
+             }
+             else
+             {
+                 Console.WriteLine("Please enter your password.");
+             } */
+
+            //triangle
+            /*  const int angleCount = 3;
+              int[] angles = new int[angleCount];
+
+                  for (int i = 0; i < angleCount; i++)
+                  {
+                  Console.Write($"Enter angle {i + 1}: ");
+                  angles[i]= Convert.ToInt32(Console.ReadLine());
+                  }
+
+
+
+              //int angleSum = angles[0] + angles[1] + angles[2];
+              int angleSum = 0;
+
+               foreach (int angle in angles) //it will run every value, can't specify like a for loop
+              {
+                  angleSum += angle; 
+              }
+
+              Console.WriteLine(angleSum);
+
+              Console.WriteLine(angleSum == 180 ? "Valid triangle" : "Invalid Triangle");
+
+              //triangle but not store any value
+               const int angleCount = 3;
+              int angleSum = 0;
+
+              for (int i = 0; i < angleCount; i++)
+              {
+                  Console.Write($"Enter angle {i + 1}: ");
+                  angleSum += Convert.ToInt32(Console.ReadLine());
+              }
+
+              Console.WriteLine(angleSum);
+
+              Console.WriteLine(angleSum == 180 ? "Valid triangle" : "Invalid Triangle"); */
+            //Array.Sort(array); = sort out the data in the array, return void, 
+            //Array.Reverse(array); = reverse the data in the array,
+            //Array.Clear(array, indexBegin, indexEnd); = clear the data in the array to its default (ex. int is 0)
+            //Array.IndexOf(array, search, indexBeginSearch, indexEndSearch); = uses to search for data in the array, if not found return -1, and will return only first found in the array
+
+            /*  int[] numbers = new int[]
+              { 
+                  12, 20, 29, 60 , 59, 78
+              };
+
+              Console.Write("Enter a number to search: ");
+              int search = Convert.ToInt32(Console.ReadLine());
+
+              int position = Array.IndexOf(numbers, search);
+
+              if (position > -1)
+              {
+                  Console.WriteLine($"The number {search} has been found at the postion {position + 1}");
+              }
+              else
+              {
+                  Console.WriteLine($"The number {search} has not been found!");
+              } */
+            //list<data type we wanna have> = use when we don't know how much the data gonna be
+
+            /* List<int> listNumbers = new List<int>();
+
+             for (int i = 0; i < 5; i++)
+             { 
+                 Console.Write("Enter a number: ");
+                 listNumbers.Add(Convert.ToInt32(Console.ReadLine()));
+             }
+
+             listNumbers.RemoveAt(2);
+
+             foreach (var item in listNumbers)
+             {
+                 Console.Write($"{item} ");
+             } */
+
+            //Dictionary<key, value> = value can be the same as long as key is unique
+
+            /*  Dictionary<string, string> names = new Dictionary<string, string>
+              {
+                  //KeyValuePair
+                  { "Fist", "BBB" } ,
+                  { "Second", "BBB" } ,
+                  { "Third", "EEE" }
+              };
+
+              if (names.TryGetValue("Second", out string namesOut)) //tryget is try to retreive a value from the the key
+              {
+                  Console.WriteLine(namesOut);
+                  names["Second"] = "FFF";
+              }
+              else
+              {
+                  Console.WriteLine(" Second is not found");
+              }
+
+              if (names.ContainsKey("Second"))
+              {
+                  names.Remove("Second");
+              }
+              else 
+              {
+                  Console.WriteLine(" Second is not found");
+              }
+
+              for (int i = 0; i < names.Count; i++)
+              {
+                  KeyValuePair<string, string> pair = names.ElementAt(i);
+                  Console.WriteLine($"{pair.Key} , {pair.Value} ");
+              } */
+
+            //odd/even split practice - uses list bc we can change the numbers freely more than array
+            /* create two lists with int data type, one for odd numbers and on for even number
+             * loop from 1-30
+                if the numbers are odd, stored it in odd list
+                if the numbers are even, stored it in even list
+            print odd list
+            print even list */
+
+            /* List<int> oddNums = new List<int>();
+             List<int> evenNums = new List<int>();
+
+             for (int i = 0; i <= 30; i++)
+             {
+                 if (i % 2 == 0)
+                 {
+                     evenNums.Add(i);
+                 }
+                 else
+                 { 
+                     oddNums.Add(i);
+                 }
+             }
+             Console.WriteLine("Printing odd number: ");
+             foreach (int items in oddNums)
+             {
+                 Console.Write($"{items} ");
+             }
+
+             Console.WriteLine(Environment.NewLine + "Printing even number: ");
+
+             foreach (int items in evenNums)
+             {
+                 Console.Write($"{items} ");
+             } */
+
+            //array of multiple
+            /* define and initialize two intergers (num, lenght)
+             * (num, length) -> [a, b ,c ...] (5, 6)
+             * create int array with size lenght
+             * loop through and insert the (loop  counter x num) into the array
+             * print the final array */
+            /*
+            int num = 5;
+            int lenght = 6;
+            int[] multiple = new int[lenght];
+            int counter = 0;
+
+            for (int i = 0; i < multiple.Length; i++)
+            {
+                multiple[i] = (i + 1) * num; //it can also be multiple[i - 1] = i * num;
+            } 
+            // or
+            for (int i = 1; i <= multiple.Length; i++, counter++)
+            {
+                multiple[counter] = i * num; 
+            }
+
+            foreach (int i in multiple)
+            { 
+                Console.Write($"{i} " );
+            }*/
+
+            //function = make them do as less as possible
+            /* areas of triangle 
+             * ask user for the width and height, store them
+             * creat funtion to calculate the area using (width * height) / 2
+             * call in  main and print the area ogf the triangle */
+            /* int width = ReadInput("Enter the width: ");
+             int height = ReadInput("Enter the height: ");
+
+             int result = AreaCalc(width, height);
+             Console.WriteLine($"The area is {result}."); */
+
+            //sum of int array function practice
+            /* create and initialize int array of numbers
+             * create function SumOfNumbers with int return type
+             * int array param
+             * function should return total of all number
+             * call in main and output in total
+             * extra: check array length
+                - retuen -1 if the array is empty
+                - check return in main  and output message
+                - do we need to return -1, how else can we make this */
+
+            /* int[] numbers = new int[5];
+
+             for (int i = 0; i < numbers.Length; i++)
+             {
+                     // Console.Write($"Enter #{i + 1} number: ");
+                     //  numbers[i] = Convert.ToInt32(Console.ReadLine());
+                     numbers[i] = NumInput($"Enter #{i + 1} number: ");
+                 }
+             } */
+
+            //return -1 version
+            /*  int total = SumOfNumbers(numbers);
+
+                  if (total > -1)
+                  {
+                    Console.WriteLine($"The total is {total} . ");
+                  }
+                  else
+                  {
+                    Console.WriteLine("Cannot find a total of an empty array.");
+                  } */
+
+            //don't have to return -1, turn it into bool
+
+            /*  if (SumOfNumbers(numbers, out int sum))
+             {
+                 Console.WriteLine($"The total is {sum} . ");
+             }
+             else
+             {
+                 Console.WriteLine("Cannot find a total of an empty array.");
+             }
+             */
+
+            //Exception handling - try catch (put specific exception inside this after catch and put the (Exception) to the last catch)
+
+            /*  bool looping = true; //to keep the program prompting until it correcly run
+
+              while (looping)
+              { 
+                  try
+                  {
+                      Console.Write("Enter a number: ");
+                      int num = Convert.ToInt32(Console.ReadLine());
+                      Console.WriteLine(num);
+
+                      looping = false;
+                  }
+                  catch (FormatException error)
+                  {
+                      Console.WriteLine($" Error: {error.Message}"); //not neccessary if you already have a specific message but just to show
+                      Console.WriteLine("Please only enter numbers!");
+                  }
+                  catch (OverflowException error)
+                  {
+                      Console.WriteLine($" Error: {error.Message}");
+                      Console.WriteLine("Please only enter numbers less than 2 billions!");
+                  }
+                  catch (Exception error)
+                  {
+                      Console.WriteLine($" Error: {error.Message}"); 
+                      Console.WriteLine("Something's wrong!, I'm dying!");
+                  }
+              }
+              Console.WriteLine("Bye Bye!"); */
+
+            //Custom Tryparse
+            /*create a int and try to convert any string to an int
+             * Notice the error and use try..catch handler around it
+             * catch the error and output the error message
+             * without changing the current code
+             * why is it the bad situation and how can we know if its been converted?
+             * create a custom tryparse function
+             * find the real function and copy the type/parameter
+             * reads the tooltip it give you to give you idea on what to do */
+
+            /* bool success = false;
+            //can wrap all this in a while loop but I'm a little confused so I'll wrap it later
+                 try
+                 {
+                     Console.Write("Enter a number: ");
+                     int num = Convert.ToInt32(Console.ReadLine());
+
+                     success = true;
+                 }
+                 catch (FormatException error)
+                 {
+                     Console.WriteLine($"Error: {error}");
+                 }
+                 catch (OverflowException error)
+                 {
+                     Console.WriteLine($"Error: {error}");
+                 }
+                 catch (Exception error)
+                 {
+                     Console.WriteLine($"Error: {error}");
+                 }
+             Console.Write("Enter a number: ");
+                if (TryParse(Console.ReadLine(), out int result))
+                {
+                    Console.WriteLine("Oh yeahh");
+                }
+                else
+                {
+                    Console.WriteLine("Oh noooo"); */
+
+
+            Console.ReadLine();
+        }
+        //structure related function
+        /* static Person DetailPerson()
+        {
+            Console.Write("Enter your name: ");
+            string name = Console.ReadLine();
+
+            Console.Write("Enter your age: ");
+            int age = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Enter your favorite number: ");
+            int favNum = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Enter your work: ");
+            string work = Console.ReadLine();
+
+
+            return new Person(name, age, favNum, work);
+        } */
+
+            //tryparse function
+            /*nstatic bool TryParse(string input, out int result)
+            {
+                try
+                {
+                    result = Convert.ToInt32(input);
+                    return true;
+                }
+                catch (Exception error)
+                {
+                    result = -1;
+                    Console.WriteLine($"Error: {error.Message}");
+                    return false;
+                }
+
+            } */
+
+            //sum of int array function
+            /* static bool SumOfNumbers(int[] numbers, out int sum)
+             {
+                 sum = 0;
+                 if (numbers.Length > 0)
+                 {
+                     foreach (var num in numbers)
+                     {
+                         sum += num;
+                     }
+                     return true;
+                 }
+                 return false;
+             }
+            static int NumInput(string message)
+             {
+                 Console.Write(message);
+                 return Convert.ToInt32(Console.ReadLine());
+             } 
+               static int SumOfNumbers(int[] numbers)
+               {
+                   if (numbers.Length > 0)
+                   {
+                       int SumOfNumber = 0;
+
+                       foreach (var num in numbers)
+                       {
+                           SumOfNumber += num;
+                       }
+                       return SumOfNumber;
+                   }
+                   return -1;
+               } */
+            //areas of triangle's function
+            /* static int ReadInput(string message)
+            {
+                Console.Write(message);
+                return Convert.ToInt32(Console.ReadLine());
+            }
+
+            static int AreaCalc(int width, int height)
+            {
+                return (width * height) / 2;
+
+            } */
+    }
+}    
+
+
